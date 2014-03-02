@@ -1,0 +1,17 @@
+# Save me under: $HOME/.gitconfig
+
+[alias]
+  gc = "git commit"
+  gm = "git merge"
+[color]
+  ui = auto
+[commit]
+  template = /Users/<YOUR_USER_NAME_HERE>/.gitmessage.txt
+[core]
+  editor = subl --new-window --wait
+  excludesfile = /Users/<YOUR_USER_NAME_HERE>/.gitignore_global
+[push]
+  default = current
+[user]
+  email = <MY EMAIL ADDRESS HERE>
+  name = <MY NAME HERE>

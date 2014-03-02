@@ -1,0 +1,7 @@
+# Save me under: $HOME/.gitmessage.txt
+
+subject line
+
+what happened
+
+[ticket: X]
