@@ -274,7 +274,9 @@ The Sublime page also has a sweet [search function](https://sublime.wbond.net/se
 
 #### Package list
 
+- [Alignment](http://wbond.net/sublime_packages/alignment)
 - [All Autocomplete](https://github.com/alienhard/SublimeAllAutocomplete)
+- [ApacheConf.tmLanguage](https://github.com/colinta/ApacheConf.tmLanguage)
 - [ApplySyntax](https://github.com/facelessuser/ApplySyntax)
 - [Better CoffeeScript](https://github.com/aponxi/sublime-better-coffeescript)
 - [ChangeQuotes](https://github.com/colinta/SublimeChangeQuotes)
@@ -316,6 +318,7 @@ The Sublime page also has a sweet [search function](https://sublime.wbond.net/se
 - [SublimeREPL](https://github.com/wuub/SublimeREPL)
 - [Syntax Highlighting for Sass (and also SCSS)](https://github.com/P233/Syntax-highlighting-for-Sass)
 - [Theme - Soda](http://buymeasoda.github.io/soda-theme/)
+- [WordCount](https://github.com/SublimeText/WordCount)
 
 #### Package settings
 
