@@ -1,4 +1,4 @@
-# Settings for Sublime Text
+# Settings for Sublime Text 3
 
 Find this folder in __Mac OS X__ under:
 
