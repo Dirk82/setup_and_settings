@@ -219,7 +219,6 @@ subversion
 
 ```bash
 $ brew install \
-XviD \
 ffmpeg \
 ghostscript \
 graphviz \
@@ -228,7 +227,8 @@ mjpegtools \
 mp4v2 \
 mplayer \
 ps2eps \
-x264
+x264 \
+XviD
 ```
 
 #### Datenbanken:
@@ -277,35 +277,37 @@ The Sublime page also has a sweet [search function](https://sublime.wbond.net/se
 - [All Autocomplete](https://github.com/alienhard/SublimeAllAutocomplete)
 - [ApplySyntax](https://github.com/facelessuser/ApplySyntax)
 - [Better CoffeeScript](https://github.com/aponxi/sublime-better-coffeescript)
-- [CTags](https://github.com/SublimeText/CTags)
 - [ChangeQuotes](https://github.com/colinta/SublimeChangeQuotes)
 - [CoffeeScriptHaml](https://github.com/jisaacks/CoffeeScriptHaml)
 - [Configify](https://github.com/loganhasson/configify)
+- [CTags](https://github.com/SublimeText/CTags)
 - [Emmet](https://github.com/sergeche/emmet-sublime)
 - [File Navigator](https://github.com/Chris---/SublimeText-File-Navigator)
 - [Git Config](https://github.com/robballou/gitconfig-sublimetext)
-- [GitGutter](http://www.jisaacks.com/gitgutter)
 - [Git](https://github.com/kemayo/sublime-text-git)
+- [GitGutter](http://www.jisaacks.com/gitgutter)
 - [Gitignore](https://github.com/theadamlt/Sublime-Gitignore)
-- [HTML2HAML (sublime-html-to-haml)](https://github.com/pavelpachkovskij/sublime-html-to-haml) (install manually via Git)
 - [Handlebars](https://github.com/daaain/Handlebars)
+- [HTML2HAML (sublime-html-to-haml)](https://github.com/pavelpachkovskij/sublime-html-to-haml) (install manually via Git)
 - [I18n Rails](https://github.com/NicoSantangelo/sublime-text-i18n-rails)
+- [jQuery](https://github.com/SublimeText/jQuery)
 - [LESS](https://github.com/danro/LESS-sublime)
 - [List LESS Variables](https://github.com/MaciekBaron/sublime-list-less-vars)
 - [Markdown Preview](https://github.com/revolunet/sublimetext-markdown-preview)
 - [MarkdownEditing](https://github.com/SublimeText-Markdown/MarkdownEditing)
 - [Modific](https://github.com/gornostal/Modific)
 - [Package Control](https://sublime.wbond.net/installation)
-- [RSpec](https://github.com/SublimeText/RSpec)
 - [Rails Developer Snippets](https://github.com/j10io/railsdev-sublime-snippets)
 - [Rails Partial](https://github.com/wesf90/rails-partial)
 - [RailsCasts Colour Scheme](https://github.com/tdm00/sublime-theme-railscasts)
 - [RailsGoToSpec](https://github.com/sporto/rails_go_to_spec)
+- [rbenv](https://github.com/felipeelias/sublime-text-2-rbenv)
+- [RSpec](https://github.com/SublimeText/RSpec)
 - [Ruby Slim](https://github.com/slim-template/ruby-slim.tmbundle)
-- [SSH Config](https://github.com/robballou/sublimetext-sshconfig)
 - [SideBarEnhancements](https://github.com/titoBouzout/SideBarEnhancements)
 - [SideBarFolders](https://github.com/SublimeText/SideBarFolders)
 - [SideBarGit](https://github.com/SublimeText/SideBarGit)
+- [SSH Config](https://github.com/robballou/sublimetext-sshconfig)
 - [SublimeLinter-coffee](https://github.com/SublimeLinter/SublimeLinter-coffee)
 - [SublimeLinter-haml](https://github.com/SublimeLinter/SublimeLinter-haml)
 - [SublimeLinter-json](https://github.com/SublimeLinter/SublimeLinter-json)
@@ -314,8 +316,6 @@ The Sublime page also has a sweet [search function](https://sublime.wbond.net/se
 - [SublimeREPL](https://github.com/wuub/SublimeREPL)
 - [Syntax Highlighting for Sass (and also SCSS)](https://github.com/P233/Syntax-highlighting-for-Sass)
 - [Theme - Soda](http://buymeasoda.github.io/soda-theme/)
-- [jQuery](https://github.com/SublimeText/jQuery)
-- [rbenv](https://github.com/felipeelias/sublime-text-2-rbenv)
 
 #### Package settings
 
