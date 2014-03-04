@@ -15,9 +15,9 @@ There are moments when you are setting up a new machine elsewhere or want to hel
     3. [Installing oh-my-zsh](#3-installing-oh-my-zsh)
     4. [Installing Ruby](#4-installing-ruby)
     5. [Installing databases](#5-installing-databases)
-        - [MySQL](#mysql)
-        - [PostgreSQL](#postgresql)
-    6. My Homebrew packages
+        * [MySQL](#mysql)
+        * [PostgreSQL](#postgresql)
+    6. [My Homebrew packages](#6-my-homebrew-packages)
 
 ## Application settings
 
@@ -138,3 +138,5 @@ Stop the servers after the process was _hopefully_ successful:
 
     $ /usr/local/Cellar/postgresql/9.3.x/bin/pg_ctl -D /usr/local/var/postgres/9.3 -o "-p 5000" stop
     $ /usr/local/Cellar/postgresql/9.4.0/bin/pg_ctl -D /usr/local/var/postgres/9.4 -o "-p 5001" stop
+
+### 6. My Homebrew packages
