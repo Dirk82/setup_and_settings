@@ -32,6 +32,9 @@ alias compile_production="RAILS_ENV=production bundle exec rake assets:precompil
 alias ruby_update="gem update --system; gem update"
 alias uninstall_all_gems="for x in `gem list --no-versions`; do gem uninstall $x -a -x -I; done"
 
+# Rbenv
+alias rbr="rbenv rehash"
+
 # LaTeX
 alias tex_update="tlmgr update --self --all"
 
@@ -71,7 +74,7 @@ plugins=(brew bundler git heroku postgres rails rbenv)
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
+### Some PATH variables: customize to your needs...
 export PATH="$PATH:/usr/local/share/npm/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin"
 
 export MANPATH="/usr/local/share:/usr/local/man:$MANPATH"
@@ -86,10 +89,16 @@ export PATH="/usr/local/bin:$PATH"
 ### Adjust PATH for rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 
+export RBENV_ROOT="$HOME/.rbenv"
+
 ### Token for Github API to avoid limited requests
 export HOMEBREW_GITHUB_API_TOKEN=<INSERT_YOUR_TOKEN_HERE>
 
-# To enable shims and autocompletion for rbenv
+### Set Sublime as the default editor
+export EDITOR="subl -w"
+export BUNDLE_EDITOR="subl"
+
+### To enable shims and autocompletion for rbenv
 if
   which rbenv > /dev/null;
   then eval "$(rbenv init -)";
