@@ -1,6 +1,6 @@
 # Save me under: $HOME/.zshrc
 
-# Path to your oh-my-zsh configuration.
+### Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
@@ -9,16 +9,16 @@ ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
 
-# Aliases
+### Aliases
 
-# Paket Manager & Development
+### Paket Manager & Development
 
-# Homebrew: General
+### Homebrew: General
 alias brew_clean="brew cleanup --force -s"
 alias brew_update="brew update; brew upgrade"
 # Do rm -rf $(brew --cache) afterwards for cleaning the download cache
 
-# Homebrew: MySQL, PG, ElasticSearch
+### Homebrew: MySQL, PG, ElasticSearch
 alias start_es="brew services start elasticsearch"
 alias stop_es="brew services stop elasticsearch"
 alias start_mysql="brew services start mysql"
@@ -26,19 +26,19 @@ alias stop_mysql="brew services stop mysql"
 alias start_pg="launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 alias stop_pg="launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 
-# Ruby, Rails
+### Ruby, Rails
 alias clear_rails="rake log:clear; rake tmp:clear; rake assets:clean; rake tmp:create"
 alias compile_production="RAILS_ENV=production bundle exec rake assets:precompile"
 alias ruby_update="gem update --system; gem update"
 alias uninstall_all_gems="for x in `gem list --no-versions`; do gem uninstall $x -a -x -I; done"
 
-# Rbenv
+### Rbenv
 alias rbr="rbenv rehash"
 
-# LaTeX
+### LaTeX
 alias tex_update="tlmgr update --self --all"
 
-# Xcode
+### Xcode
 alias accept_xcode="sudo xcodebuild -license"
 
 # Set to this to use case-sensitive completion
@@ -89,10 +89,11 @@ export PATH="/usr/local/bin:$PATH"
 ### Adjust PATH for rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
 
+### Set home for rbenv
 export RBENV_ROOT="$HOME/.rbenv"
 
 ### Token for Github API to avoid limited requests
-export HOMEBREW_GITHUB_API_TOKEN=<INSERT_YOUR_TOKEN_HERE>
+export HOMEBREW_GITHUB_API_TOKEN=<INSERT_YOUR_GITHUB_API_TOKEN_HERE>
 
 ### Set Sublime as the default editor
 export EDITOR="subl -w"
