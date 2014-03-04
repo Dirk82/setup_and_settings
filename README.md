@@ -181,57 +181,61 @@ Over the time the list of installed packages from Homebrew got longer and longer
 #### Standard stuff:
 
 ```bash
-$ brew install aria2 \
-md5sha1sum \
+$ brew install \
+aria2 \
 bash-completion \
+colordiff \
+curl \
+curl-ca-bundle \
 dos2unix \
+gnupg2 \
+md5sha1sum \
+openssl \
 unrar \
 wakeonlan \
 wget \
-gnupg2 \
-openssl \
-curl \
-curl-ca-bundle \
-colordiff \
 zsh
 ```
 
 #### Versioning and Development:
 
 ```bash
-$ brew install git \
-mercurial \
-subversion \
+$ brew install \
+ctags \
+git \
 heroku-toolbelt \
-libyaml \
 libxml2 \
 libxslt \
-readline \
+libyaml \
+mercurial \
 rbenv \
-ruby-build \
 rbenv-gemset \
-ctags
+readline \
+ruby-build \
+subversion
 ```
 
 #### Multimedia-Stuff:
 
 ```bash
-$ brew install ghostscript \
-imagemagick \
-ps2eps \
+$ brew install \
+XviD \
 ffmpeg \
-mplayer \
+ghostscript \
+graphviz \
+imagemagick \
 mjpegtools \
 mp4v2 \
-x264 \
-XviD \
-graphviz
+mplayer \
+ps2eps \
+x264
 ```
 
 #### Datenbanken:
 
 ```bash
-$ brew install mysql \
+$ brew install \
+mysql \
 postgresql \
 sqlite3
 ```
@@ -239,7 +243,8 @@ sqlite3
 #### File-Sharing:
 
 ```bash
-$ brew install samba
+$ brew install \
+samba
 ```
 
 ### Step 7: Sublime Text 3
