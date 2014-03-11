@@ -3,7 +3,7 @@
         "debug": false,
         "delay": 0.25,
         "error_color": "D02000",
-        "gutter_theme": "Packages/SublimeLinter/gutter-themes/Default/Default.gutter-theme",
+        "gutter_theme": "Packages/SublimeLinter/gutter-themes/ProjectIcons/ProjectIcons.gutter-theme",
         "gutter_theme_excludes": [],
         "lint_mode": "background",
         "linters": {
@@ -11,6 +11,14 @@
                 "@disable": false,
                 "args": [],
                 "excludes": []
+            },
+            "csslint": {
+                "@disable": false,
+                "args": [],
+                "errors": "",
+                "excludes": [],
+                "ignore": "",
+                "warnings": ""
             },
             "haml": {
                 "@disable": false,
@@ -26,13 +34,23 @@
                 "@disable": false,
                 "args": [],
                 "excludes": []
+            },
+            "scss": {
+                "@disable": false,
+                "args": [],
+                "exclude-linter": "",
+                "excludes": [],
+                "include-linter": ""
             }
         },
         "mark_style": "outline",
         "no_column_highlights_line": false,
         "paths": {
             "linux": [],
-            "osx": [],
+            "osx": [
+                "/usr/local/bin",
+                "$HOME/rbenv/shims"
+            ],
             "windows": []
         },
         "python_paths": {
