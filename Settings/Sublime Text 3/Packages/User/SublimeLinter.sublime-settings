@@ -7,7 +7,7 @@
         "gutter_theme_excludes": [],
         "lint_mode": "background",
         "linters": {
-            "coffee": {
+            "coffeelint": {
                 "@disable": false,
                 "args": [],
                 "excludes": []
@@ -30,7 +30,7 @@
                 "args": [],
                 "excludes": []
             },
-            "ruby": {
+            "rubocop": {
                 "@disable": false,
                 "args": [],
                 "excludes": []
