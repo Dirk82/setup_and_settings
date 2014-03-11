@@ -92,7 +92,7 @@ Copy over the .zshrc file from [ZSH Settings](Settings/ZSH) to $HOME/.zshrc.
 New Ruby versions will be installed via rbenv (I also use [rbenv-gemset](https://github.com/jf/rbenv-gemset))
 
 ```bash
-$ brew install rbenv ruby-build rbenv-gemset
+$ brew install rbenv ruby-build rbenv-gemset rbenv-default-gems
 ```
 
 Adjust the PATH variable in .zshrc:
@@ -100,6 +100,24 @@ Adjust the PATH variable in .zshrc:
 ```bash
 ### Adjust PATH for rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
+```
+
+Define some gems that are installed with every version of Ruby:
+
+- bundler
+- haml
+- pry
+- rubocop
+- scss-lint
+- terminal-notifier
+
+```bash
+echo "bundler
+haml
+pry
+rubocop
+scss-lint
+terminal-notifier" > $HOME/.rbenv/default-gems
 ```
 
 Install Ruby 2.1.1 via rbenv and thanks to ruby-build we can simply type:
