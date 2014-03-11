@@ -112,7 +112,7 @@ Define some gems that are installed with every version of Ruby:
 - terminal-notifier
 
 ```bash
-echo "bundler
+$ echo "bundler
 haml
 pry
 rubocop
