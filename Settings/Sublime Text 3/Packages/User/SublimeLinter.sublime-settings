@@ -30,11 +30,6 @@
                 "args": [],
                 "excludes": []
             },
-            "rubocop": {
-                "@disable": false,
-                "args": [],
-                "excludes": []
-            },
             "scss": {
                 "@disable": false,
                 "args": [],
