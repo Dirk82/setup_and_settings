@@ -92,7 +92,7 @@ Copy over the .zshrc file from [ZSH Settings](Settings/ZSH) to $HOME/.zshrc.
 New Ruby versions will be installed via rbenv (I also use [rbenv-gemset](https://github.com/jf/rbenv-gemset))
 
 ```bash
-$ brew install rbenv ruby-build rbenv-gemset rbenv-default-gems
+$ brew install rbenv ruby-build rbenv-gemset rbenv-default-gems rbenv-gem-rehash
 ```
 
 Adjust the PATH variable in .zshrc:
@@ -228,6 +228,8 @@ libyaml \
 mercurial \
 rbenv \
 rbenv-gemset \
+rbenv-default-gems \
+rbenv-gem-rehash \
 readline \
 ruby-build \
 subversion
@@ -323,6 +325,7 @@ The Sublime page also has a sweet [search function](https://sublime.wbond.net/se
 - [RailsGoToSpec](https://github.com/sporto/rails_go_to_spec)
 - [rbenv](https://github.com/felipeelias/sublime-text-2-rbenv)
 - [RSpec](https://github.com/SublimeText/RSpec)
+- [Rubocop](https://github.com/pderichs/sublime_rubocop)
 - [Ruby Slim](https://github.com/slim-template/ruby-slim.tmbundle)
 - [SASS](https://github.com/nathos/sass-textmate-bundle)
 - [SCSS](https://github.com/MarioRicalde/SCSS.tmbundle)
@@ -335,7 +338,6 @@ The Sublime page also has a sweet [search function](https://sublime.wbond.net/se
 - [SublimeLinter-csslint](https://github.com/SublimeLinter/SublimeLinter-csslint)
 - [SublimeLinter-haml](https://github.com/SublimeLinter/SublimeLinter-haml)
 - [SublimeLinter-json](https://github.com/SublimeLinter/SublimeLinter-json)
-- [SublimeLinter-rubocop](https://github.com/SublimeLinter/SublimeLinter-rubocop)
 - [SublimeLinter](http://sublimelinter.readthedocs.org/en/latest/)
 - [SublimeREPL](https://github.com/wuub/SublimeREPL)
 - [Theme - Soda](http://buymeasoda.github.io/soda-theme/)
