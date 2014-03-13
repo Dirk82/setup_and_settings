@@ -15,8 +15,6 @@ There are moments when you are setting up a new machine elsewhere or want to hel
     - [Step 3: Installing oh-my-zsh](#step-3-installing-oh-my-zsh)
     - [Step 4: Installing Ruby](#step-4-installing-ruby)
     - [Step 5: Installing and setup databases](#step-5-installing-and-setup-databases)
-        * [MySQL](#mysql)
-        * [PostgreSQL](#postgresql)
     - [Step 6: Homebrew packages](#step-6-homebrew-packages)
     - [Step 7: Sublime Text 3](#step-7-sublime-text-3)
 
@@ -47,96 +45,19 @@ The repo holds a folder ['Settings'](Settings) that contains - _wait for it_ - s
 
 ### Step 1: Installing Homebrew and ZSH
 
-Executing the line from the [Homebrew homepage](http://brew.sh):
-
-```bash
-$ ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-```
-
-Installing (a more recent version of) ZSH:
-
-```bash
-$ /usr/local/bin/brew install zsh
-```
-
-You can also call _brew_ without the whole path if you adjusted the PATH variable to include this path.
+[Gist with instructions](https://gist.github.com/Dirk82/9537697)
 
 ### Step 2: Change user shell
 
-Add ZSH to available shells:
-
-```bash
-$ sudo echo "/usr/local/bin/zsh" >> /etc/shells
-```
-
-Change user login shell to ZSH:
-
-```bash
-$ chsh -s /usr/local/bin/zsh $USER
-```
-
-Log out, log in again and we are fine to run ZSH!
+[Gist with instructions](https://gist.github.com/Dirk82/9537748)
 
 ### Step 3: Installing oh-my-zsh
 
-Executing the line from the [oh-my-zsh GitHub page](https://github.com/robbyrussell/oh-my-zsh):
-
-```bash
-$ curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
-```
-
-Copy over the .zshrc file from [ZSH Settings](Settings/ZSH) to $HOME/.zshrc.
+[Gist with instructions](https://gist.github.com/Dirk82/9537776)
 
 ### Step 4: Installing Ruby
 
-New Ruby versions will be installed via rbenv (I also use [rbenv-gemset](https://github.com/jf/rbenv-gemset))
-
-```bash
-$ brew install rbenv ruby-build rbenv-gemset rbenv-default-gems rbenv-gem-rehash
-```
-
-Adjust the PATH variable in .zshrc:
-
-```bash
-### Adjust PATH for rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-```
-
-Define some gems that are installed with every version of Ruby:
-
-- bundler
-- haml
-- pry
-- rubocop
-- scss-lint
-- terminal-notifier
-
-```bash
-$ echo "bundler
-haml
-pry
-rubocop
-scss-lint
-terminal-notifier" > $HOME/.rbenv/default-gems
-```
-
-Install Ruby 2.1.1 via rbenv and thanks to ruby-build we can simply type:
-
-```bash
-$ rbenv install 2.1.1
-```
-
-Change the used Ruby from the System Ruby to the newly installed Ruby:
-
-```bash
-$ rbenv global 2.1.1
-```
-
-Revert back to System Ruby:
-
-```bash
-$ rbenv global system
-```
+[Gist with instructions](https://gist.github.com/Dirk82/9537818)
 
 ### Step 5: Installing and setup databases
 
@@ -144,205 +65,24 @@ Thanks to Homebrew this will be very easy!
 
 #### MySQL
 
-Installing:
-
-```bash
-$ brew install mysql
-```
+[Gist with instructions](https://gist.github.com/Dirk82/9537884)
 
 #### PostgreSQL
 
-##### Installing:
-
-```bash
-$ brew install postgresql
-```
-
-##### Creating the tables:
-
-```bash
-$ initdb --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgres/9.3
-```
-
-_Note: I like to separate the data directories by their minor version number for easier upgrade when a new minor version appears. By this it is possible to simply migrate the data from on minor version to another minor version ([see abstract about migrating data](#migrating-data))._
-
-##### Migrating data:
-
-Assuming we have a server with version 9.3.x that has been upgraded to 9.4.0. We start both versions of the database servers that listen to different ports:
-
-```bash
-$ /usr/local/Cellar/postgresql/9.3.x/bin/pg_ctl -D /usr/local/var/postgres/9.3 -o "-p 5000" start
-$ /usr/local/Cellar/postgresql/9.4.0/bin/pg_ctl -D /usr/local/var/postgres/9.4 -o "-p 5001" start
-```
-
-Then we migrate the data from the old data dir to the new data dir:
-
-```bash
-$ /usr/local/Cellar/postgresql/9.4.0/bin/pg_upgrade \
--b /usr/local/Cellar/postgresql/9.3.x/bin \
--B /usr/local/Cellar/postgresql/9.4.0/bin \
--d /usr/local/var/postgres/9.3 \
--D /usr/local/var/postgres/9.4
-```
-
-Stop the servers after the process was _hopefully_ successful:
-
-```bash
-$ /usr/local/Cellar/postgresql/9.3.x/bin/pg_ctl -D /usr/local/var/postgres/9.3 -o "-p 5000" stop
-$ /usr/local/Cellar/postgresql/9.4.0/bin/pg_ctl -D /usr/local/var/postgres/9.4 -o "-p 5001" stop
-```
+[Gist with instructions](https://gist.github.com/Dirk82/9538089)
 
 ### Step 6: Homebrew packages
 
-Over the time the list of installed packages from Homebrew got longer and longer. Here are lists, separated by _categories_.
-
-#### Standard stuff:
-
-```bash
-$ brew install \
-aria2 \
-bash-completion \
-colordiff \
-curl \
-curl-ca-bundle \
-dos2unix \
-gnupg2 \
-md5sha1sum \
-openssl \
-unrar \
-wakeonlan \
-wget \
-zsh
-```
-
-#### Versioning and Development:
-
-```bash
-$ brew install \
-ctags \
-git \
-heroku-toolbelt \
-libxml2 \
-libxslt \
-libyaml \
-mercurial \
-rbenv \
-rbenv-gemset \
-rbenv-default-gems \
-rbenv-gem-rehash \
-readline \
-ruby-build \
-subversion
-```
-
-#### Multimedia-Stuff:
-
-```bash
-$ brew install \
-ffmpeg \
-ghostscript \
-graphviz \
-imagemagick \
-mjpegtools \
-mp4v2 \
-mplayer \
-ps2eps \
-x264 \
-XviD
-```
-
-#### Datenbanken:
-
-```bash
-$ brew install \
-mysql \
-postgresql \
-sqlite3
-```
-
-#### File-Sharing:
-
-```bash
-$ brew install \
-samba
-```
+[Gist with instructions](https://gist.github.com/Dirk82/9537913)
 
 ### Step 7: Sublime Text 3
 
-Start with creating a symbolic link so that we can use Sublime from the command line:
-
-```bash
-$ ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin
-```
-
-Continue with installing __Package Control__ for easier installing packages:
-
-```bash
-cd ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/
-git clone git://github.com/wbond/sublime_package_control.git Package\ Control
-cd Package\ Control
-git checkout python3
- 
-# restart Sublime Text 3 and you should have Package Control working
-```
-
-Thanks to [_moomerman_](https://github.com/moomerman) for this nice [Gist](https://gist.github.com/moomerman/4674060)! As an alternative there are also instructions on the [Sublime page](https://sublime.wbond.net/installation).
-
-Installing packages is easy via shortcut: __SHIFT + CMD + p__, followed by typing: __Package Control: Install Package__ (_thanks to fuzzy finder it is sufficent to just type two or three letters of this command_).
-
-The Sublime page also has a sweet [search function](https://sublime.wbond.net/search) for available packages.
+[Gist with instructions](https://gist.github.com/Dirk82/9537961)
 
 #### Package list
 
-- [Alignment](http://wbond.net/sublime_packages/alignment)
-- [All Autocomplete](https://github.com/alienhard/SublimeAllAutocomplete)
-- [ApacheConf.tmLanguage](https://github.com/colinta/ApacheConf.tmLanguage)
-- [ApplySyntax](https://github.com/facelessuser/ApplySyntax)
-- [Better CoffeeScript](https://github.com/aponxi/sublime-better-coffeescript)
-- [ChangeQuotes](https://github.com/colinta/SublimeChangeQuotes)
-- [CoffeeScriptHaml](https://github.com/jisaacks/CoffeeScriptHaml)
-- [Configify](https://github.com/loganhasson/configify)
-- [CTags](https://github.com/SublimeText/CTags)
-- [Emmet](https://github.com/sergeche/emmet-sublime)
-- [File Navigator](https://github.com/Chris---/SublimeText-File-Navigator)
-- [Git Config](https://github.com/robballou/gitconfig-sublimetext)
-- [Git](https://github.com/kemayo/sublime-text-git)
-- [GitGutter](http://www.jisaacks.com/gitgutter)
-- [Gitignore](https://github.com/theadamlt/Sublime-Gitignore)
-- [Handlebars](https://github.com/daaain/Handlebars)
-- [HTML2HAML (sublime-html-to-haml)](https://github.com/pavelpachkovskij/sublime-html-to-haml) (install manually via Git)
-- [I18n Rails](https://github.com/NicoSantangelo/sublime-text-i18n-rails)
-- [jQuery](https://github.com/SublimeText/jQuery)
-- [LESS](https://github.com/danro/LESS-sublime)
-- [List LESS Variables](https://github.com/MaciekBaron/sublime-list-less-vars)
-- [Markdown Preview](https://github.com/revolunet/sublimetext-markdown-preview)
-- [MarkdownEditing](https://github.com/SublimeText-Markdown/MarkdownEditing)
-- [Modific](https://github.com/gornostal/Modific)
-- [Package Control](https://sublime.wbond.net/installation)
-- [Rails Developer Snippets](https://github.com/j10io/railsdev-sublime-snippets)
-- [Rails Partial](https://github.com/wesf90/rails-partial)
-- [RailsCasts Colour Scheme](https://github.com/tdm00/sublime-theme-railscasts)
-- [RailsGoToSpec](https://github.com/sporto/rails_go_to_spec)
-- [rbenv](https://github.com/felipeelias/sublime-text-2-rbenv)
-- [RSpec](https://github.com/SublimeText/RSpec)
-- [Rubocop](https://github.com/pderichs/sublime_rubocop)
-- [Ruby Slim](https://github.com/slim-template/ruby-slim.tmbundle)
-- [SASS](https://github.com/nathos/sass-textmate-bundle)
-- [SCSS](https://github.com/MarioRicalde/SCSS.tmbundle)
-- [SideBarEnhancements](https://github.com/titoBouzout/SideBarEnhancements)
-- [SideBarFolders](https://github.com/SublimeText/SideBarFolders)
-- [SideBarGit](https://github.com/SublimeText/SideBarGit)
-- [SSH Config](https://github.com/robballou/sublimetext-sshconfig)
-- [SublimeLinter-coffeelint](https://github.com/SublimeLinter/SublimeLinter-coffeelint)
-- [SublimeLinter-contrib-scss-lint](https://github.com/attenzione/SublimeLinter-scss-lint)
-- [SublimeLinter-csslint](https://github.com/SublimeLinter/SublimeLinter-csslint)
-- [SublimeLinter-haml](https://github.com/SublimeLinter/SublimeLinter-haml)
-- [SublimeLinter-json](https://github.com/SublimeLinter/SublimeLinter-json)
-- [SublimeLinter](http://sublimelinter.readthedocs.org/en/latest/)
-- [SublimeREPL](https://github.com/wuub/SublimeREPL)
-- [Theme - Soda](http://buymeasoda.github.io/soda-theme/)
-- [WordCount](https://github.com/SublimeText/WordCount)
+[Gist with instructions](https://gist.github.com/Dirk82/9538014)
 
 #### Package settings
 
-Find them under [Settings for Sublime Text 3](Settings/Sublime%20Text%203/).
+[Gist with instructions](https://gist.github.com/Dirk82/9538018)
