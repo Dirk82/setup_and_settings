@@ -30,6 +30,11 @@
                 "args": [],
                 "excludes": []
             },
+            "pyyaml": {
+                "@disable": false,
+                "args": [],
+                "excludes": []
+            },
             "scss": {
                 "@disable": false,
                 "args": [],
