@@ -49,7 +49,7 @@
             "linux": [],
             "osx": [
                 "/usr/local/bin",
-                "$HOME/rbenv/shims"
+                "~/.rbenv/shims"
             ],
             "windows": []
         },
