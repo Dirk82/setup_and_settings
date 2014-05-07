@@ -15,3 +15,5 @@
 [user]
   email = <MY EMAIL ADDRESS HERE>
   name = <MY NAME HERE>
+[status]
+  short = 1
