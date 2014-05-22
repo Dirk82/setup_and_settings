@@ -41,6 +41,8 @@ alias tex_update="tlmgr update --self --all"
 ### Xcode
 alias accept_xcode="sudo xcodebuild -license"
 
+alias find_broken_symlinks="find -L . -type l -ls"
+
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
@@ -70,7 +72,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(brew bundler git heroku postgres rails rbenv)
+plugins=(brew bundler git heroku postgres rails rbenv zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -91,13 +93,10 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 
 ### Set home for rbenv
 export RBENV_ROOT="$HOME/.rbenv"
+export RBENV_PLUGINS="$RBENV_ROOT/plugins"
 
 ### Token for Github API to avoid limited requests
 export HOMEBREW_GITHUB_API_TOKEN=<INSERT_YOUR_GITHUB_API_TOKEN_HERE>
-
-### Set Sublime as the default editor
-export EDITOR="subl -w"
-export BUNDLE_EDITOR="subl"
 
 ### To enable shims and autocompletion for rbenv
 if
