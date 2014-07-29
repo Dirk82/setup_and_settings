@@ -17,3 +17,6 @@
   name = <MY NAME HERE>
 [status]
   short = 1
+[git-up "bundler"]
+  check = true
+  autoinstall = false
