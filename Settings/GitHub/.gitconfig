@@ -18,5 +18,5 @@
 [status]
   short = 1
 [git-up "bundler"]
-  check = true
+  check = false
   autoinstall = false
