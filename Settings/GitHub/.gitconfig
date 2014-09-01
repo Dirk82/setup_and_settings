@@ -22,6 +22,6 @@
   autoinstall = false
 [mergetool "sublime"]
   cmd = subl -w $MERGED
-	trustExitCode = false
+  trustExitCode = false
 [merge]
-	tool = sublime
+  tool = sublime
