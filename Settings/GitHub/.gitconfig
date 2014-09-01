@@ -20,3 +20,8 @@
 [git-up "bundler"]
   check = false
   autoinstall = false
+[mergetool "sublime"]
+  cmd = subl -w $MERGED
+	trustExitCode = false
+[merge]
+	tool = sublime
