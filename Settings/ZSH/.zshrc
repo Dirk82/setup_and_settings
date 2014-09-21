@@ -19,10 +19,10 @@ alias brew_update="brew update; brew upgrade"
 # Do rm -rf $(brew --cache) afterwards for cleaning the download cache
 
 ### Homebrew: MySQL, PG, ElasticSearch
-alias start_es="brew services start elasticsearch"
-alias stop_es="brew services stop elasticsearch"
-alias start_mysql="brew services start mysql"
-alias stop_mysql="brew services stop mysql"
+alias start_es="launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist"
+alias stop_es="launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist"
+alias start_mysql="launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
+alias stop_mysql="launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
 alias start_pg="launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 alias stop_pg="launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
 
@@ -71,7 +71,6 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(bower brew bundler colorize git heroku node npm nvm postgres rails rbenv zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
