@@ -1,8 +1,0 @@
-{
-    // Alter this value if your ctags command is not in the PATH, or if using
-    // a different version of ctags to that in the path (i.e. for OSX)
-    "command": "/usr/local/bin/ctags --exclude=vendor/assets/components",
-
-    // Enable autocomplete
-    "autocomplete": true
-  }
