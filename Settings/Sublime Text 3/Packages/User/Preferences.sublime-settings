@@ -29,7 +29,7 @@
 		"*.sdf",
 		"*.so",
 		"*.suo",
-		".*DS_Store",
+		".DS_Store",
 		".gitkeep",
 		".keep"
 	],

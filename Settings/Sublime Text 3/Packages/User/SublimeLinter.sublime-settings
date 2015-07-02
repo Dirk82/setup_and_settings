@@ -35,6 +35,11 @@
                 "args": [],
                 "excludes": []
             },
+            "rubocop": {
+                "@disable": false,
+                "args": [],
+                "excludes": []
+            },
             "scss": {
                 "@disable": false,
                 "args": [],
@@ -48,8 +53,8 @@
         "paths": {
             "linux": [],
             "osx": [
-                "/usr/local/bin",
-                "~/.rbenv/shims"
+                "~/.rbenv/shims",
+                "/usr/local/bin"
             ],
             "windows": []
         },
