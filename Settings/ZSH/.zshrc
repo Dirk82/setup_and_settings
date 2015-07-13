@@ -37,6 +37,7 @@ alias rbr="rbenv rehash"
 
 ### LaTeX
 alias tex_update="tlmgr update --self --all"
+alias clear_biber_cache="rm -rf `biber --cache`"
 
 ### Xcode
 alias accept_xcode="sudo xcodebuild -license"
