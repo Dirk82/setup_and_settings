@@ -14,9 +14,8 @@ ZSH_THEME="robbyrussell"
 ### Paket Manager & Development
 
 ### Homebrew: General
-alias brew_clean="brew cleanup --force -s"
+alias brew_clean="brew prune && brew cleanup --force -s"
 alias brew_update="brew update; brew upgrade"
-# Do rm -rf $(brew --cache) afterwards for cleaning the download cache
 
 ### Homebrew: MySQL, PG, ElasticSearch
 alias start_es="launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist"
@@ -77,19 +76,19 @@ plugins=(bower brew bundler colorize git node npm postgres rails rbenv zsh-synta
 source $ZSH/oh-my-zsh.sh
 
 ### Some PATH variables: customize to your needs...
-export PATH="$PATH:/usr/local/share/npm/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/texbin"
+export PATH="$PATH:/usr/local/share/npm/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin"
 
 export MANPATH="/usr/local/share:/usr/local/man:$MANPATH"
-export NODE_PATH="/usr/local/lib/node_modules"
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
 
 ### Adding brew stuff to beginning of path
 export PATH="/usr/local/bin:$PATH"
 
 ### Adjust PATH for rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
+
+### Adding node to PATH
+export PATH="$HOME/.node/bin:$PATH"
+export NODE_PATH="$HOME/.node/lib/node_modules"
 
 ### Set home for rbenv
 export RBENV_ROOT="$HOME/.rbenv"
@@ -103,3 +102,8 @@ if
   which rbenv > /dev/null;
   then eval "$(rbenv init -)";
 fi
+
+### Add the following to your zshrc to access the online help:
+unalias run-help
+autoload run-help
+HELPDIR=/usr/local/share/zsh/help
