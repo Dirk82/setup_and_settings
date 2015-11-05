@@ -14,8 +14,8 @@ ZSH_THEME="robbyrussell"
 ### Paket Manager & Development
 
 ### Homebrew: General
-alias brew_clean="brew prune && brew cleanup --force -s"
-alias brew_update="brew update; brew upgrade"
+alias brew_clean="brew prune && brew cleanup --force -s && brew-cask cleanup"
+alias brew_update="brew update && brew upgrade"
 
 ### Homebrew: MySQL, PG, ElasticSearch
 alias start_es="launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist"
@@ -82,6 +82,7 @@ export MANPATH="/usr/local/share:/usr/local/man:$MANPATH"
 
 ### Adding brew stuff to beginning of path
 export PATH="/usr/local/bin:$PATH"
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 ### Adjust PATH for rbenv
 export PATH="$HOME/.rbenv/bin:$PATH"
