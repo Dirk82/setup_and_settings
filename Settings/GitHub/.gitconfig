@@ -4,24 +4,30 @@
   gc = "git commit"
   gm = "git merge"
 [color]
-  ui = auto
+  ui = true
 [commit]
   template = /Users/<YOUR_USER_NAME_HERE>/.gitmessage.txt
 [core]
   editor = subl --new-window --wait
   excludesfile = /Users/<YOUR_USER_NAME_HERE>/.gitignore_global
-[push]
-  default = current
-[user]
-  email = <MY EMAIL ADDRESS HERE>
-  name = <MY NAME HERE>
-[status]
-  short = 1
 [git-up "bundler"]
   check = false
   autoinstall = false
+[github]
+	user = <YOUR_GITHUB_USER_NAME_HERE>
+[merge]
+  tool = sublime
 [mergetool "sublime"]
   cmd = subl -w $MERGED
   trustExitCode = false
-[merge]
-  tool = sublime
+[push]
+  default = current
+[rebase]
+	autostash = true
+[stash]
+	showPatch = true
+[status]
+  short = 1
+[user]
+  email = <MY EMAIL ADDRESS HERE>
+  name = <MY NAME HERE>
