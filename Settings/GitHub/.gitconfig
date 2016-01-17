@@ -14,7 +14,7 @@
   check = false
   autoinstall = false
 [github]
-	user = <YOUR_GITHUB_USER_NAME_HERE>
+  user = <YOUR_GITHUB_USER_NAME_HERE>
 [merge]
   tool = sublime
 [mergetool "sublime"]
@@ -23,9 +23,9 @@
 [push]
   default = current
 [rebase]
-	autostash = true
+  autostash = true
 [stash]
-	showPatch = true
+  showPatch = true
 [status]
   short = 1
 [user]
