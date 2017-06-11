@@ -37,10 +37,16 @@
 	"folder_exclude_patterns":
 	[
 		".bundle",
+		".git",
 		".hg",
 		".sass-cache",
 		".svn",
-		"CVS"
+		"CVS",
+		"dist",
+		"log",
+		"node_modules",
+		"tmp/*cache",
+		"vendor/*cache"
 	],
 	"font_face": "Menlo",
 	"font_options":
