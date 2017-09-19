@@ -3,6 +3,7 @@
 [alias]
   gc = "git commit"
   gm = "git merge"
+  up = "git pull --rebase --autostash"
 [color]
   ui = true
 [commit]
@@ -10,9 +11,6 @@
 [core]
   editor = subl --new-window --wait
   excludesfile = /Users/<YOUR_USER_NAME_HERE>/.gitignore_global
-[git-up "bundler"]
-  check = false
-  autoinstall = false
 [github]
   user = <YOUR_GITHUB_USER_NAME_HERE>
 [merge]
