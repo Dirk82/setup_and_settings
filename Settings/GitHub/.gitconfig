@@ -3,7 +3,7 @@
 [alias]
   gc = "git commit"
   gm = "git merge"
-  up = "git pull --rebase --autostash"
+  up = "pull --rebase --autostash"
 [color]
   ui = true
 [commit]
