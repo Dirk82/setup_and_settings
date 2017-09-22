@@ -11,6 +11,8 @@
 [core]
   editor = subl --new-window --wait
   excludesfile = /Users/<YOUR_USER_NAME_HERE>/.gitignore_global
+[fetch]
+  prune = true
 [github]
   user = <YOUR_GITHUB_USER_NAME_HERE>
 [merge]
