@@ -14,16 +14,16 @@ ZSH_THEME="robbyrussell"
 ### Paket Manager & Development
 
 ### Homebrew: General
-alias brew_clean="brew prune && brew cleanup --force -s && brew-cask cleanup"
+alias brew_clean="brew prune && brew cleanup --force -s && brew cask cleanup"
 alias brew_update="brew update && brew upgrade"
 
 ### Homebrew: MySQL, PG, ElasticSearch
-alias start_es="launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist"
-alias stop_es="launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.elasticsearch.plist"
-alias start_mysql="launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
-alias stop_mysql="launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist"
-alias start_pg="launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
-alias stop_pg="launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist"
+alias start_es="brew services start elasticsearch"
+alias stop_es="brew services stop elasticsearch"
+alias start_mysql="brew services start mysql"
+alias stop_mysql="brew services stop mysql"
+alias start_pg="brew services start postgresql"
+alias stop_pg="brew services stop postgresql"
 
 ### Ruby, Rails
 alias clear_rails="rake log:clear; rake tmp:clear; rake assets:clean; rake tmp:create"
@@ -47,7 +47,7 @@ alias find_broken_symlinks="find -L . -type l -ls"
 # CASE_SENSITIVE="true"
 
 # Comment this out to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment to change how often before auto-updates occur? (in days)
 # export UPDATE_ZSH_DAYS=13
@@ -71,7 +71,7 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(bower brew bundler colorize git node npm postgres rails rbenv zsh-syntax-highlighting)
+plugins=(brew bundler colorize git node npm postgres rails rbenv zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -88,12 +88,18 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export PATH="$HOME/.rbenv/bin:$PATH"
 
 ### Adding node to PATH
-export PATH="$HOME/.node/bin:$PATH"
-export NODE_PATH="$HOME/.node/lib/node_modules"
+export NPM_PACKAGES="$HOME/.node"
+export NODE_PATH="$NPM_PACKAGES/lib/node_modules"
+export PATH="$NPM_PACKAGES/bin:$PATH"
 
 ### Set home for rbenv
 export RBENV_ROOT="$HOME/.rbenv"
 export RBENV_PLUGINS="$RBENV_ROOT/plugins"
+
+### Add Visual Studio Code (code)
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+export EDITOR="code -w"
+export BUNDLER_EDITOR="code"
 
 ### Token for Github API to avoid limited requests
 export HOMEBREW_GITHUB_API_TOKEN=<INSERT_YOUR_GITHUB_API_TOKEN_HERE>
