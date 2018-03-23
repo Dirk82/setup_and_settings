@@ -9,6 +9,12 @@ if type brew &> /dev/null; then
   echo
 fi
 
+# Antigen bundles
+echo "=== Updating Antigen bundles ==="
+antigen update
+echo "=== Finished updating Antigen bundles ==="
+echo
+
 # LaTeX
 if type tlmgr &> /dev/null; then
   echo "=== Updating LaTeX ==="

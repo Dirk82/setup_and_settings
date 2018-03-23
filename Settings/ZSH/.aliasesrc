@@ -1,0 +1,19 @@
+### Homebrew: General
+alias brew_clean="brew prune && brew cleanup --force -s"
+alias brew_update="brew update && brew upgrade"
+
+### Homebrew: MySQL, PG, ElasticSearch
+alias start_es="brew services start elasticsearch"
+alias stop_es="brew services stop elasticsearch"
+alias start_mysql="brew services start mysql"
+alias stop_mysql="brew services stop mysql"
+alias start_pg="brew services start postgresql"
+alias stop_pg="brew services stop postgresql"
+
+### Ruby, Rails
+alias ruby_update="gem update --system; gem update"
+
+### Xcode
+alias accept_xcode="sudo xcodebuild -license"
+
+alias find_broken_symlinks="find -L . -type l -ls"

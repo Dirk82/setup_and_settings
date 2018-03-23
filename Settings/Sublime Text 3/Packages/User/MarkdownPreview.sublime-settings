@@ -1,5 +1,0 @@
-{
-  "enable_highlight": true,
-  "github_oauth_token": "<INSERT_YOUR_GITHUB_API_TOKEN_HERE>",
-  "parser": "github"
-}

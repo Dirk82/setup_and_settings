@@ -1,0 +1,31 @@
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# NVM / NPM / Node related
+export NVM_LAZY_LOAD=false
+antigen bundle lukechilds/zsh-nvm
+
+# Plugins.
+antigen bundle aws
+antigen bundle brew
+antigen bundle bundler
+antigen bundle capistrano
+antigen bundle colorize
+antigen bundle git
+antigen bundle mysql
+antigen bundle node
+antigen bundle npm
+antigen bundle osx
+antigen bundle postgres
+antigen bundle rails
+antigen bundle rbenv
+antigen bundle yarn
+antigen bundle z
+antigen bundle lukechilds/zsh-better-npm-completion
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# Load the theme.
+antigen theme robbyrussell
+
+# Done.
+antigen apply

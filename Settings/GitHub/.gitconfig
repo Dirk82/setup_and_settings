@@ -9,16 +9,20 @@
 [commit]
   template = /Users/<YOUR_USER_NAME_HERE>/.gitmessage.txt
 [core]
-  editor = subl --new-window --wait
-  excludesfile = /Users/<YOUR_USER_NAME_HERE>/.gitignore_global
+  editor = code --wait
+  excludesfile = /Users/Dirk/.gitignore_global
+[diff]
+  tool = default-difftool
+[difftool "default-difftool"]
+  cmd = code --wait --diff $LOCAL $REMOTE
 [fetch]
   prune = true
 [github]
   user = <YOUR_GITHUB_USER_NAME_HERE>
 [merge]
-  tool = sublime
-[mergetool "sublime"]
-  cmd = subl -w $MERGED
+  tool = vscode
+[mergetool "vscode"]
+  cmd = code --wait $MERGED
   trustExitCode = false
 [push]
   default = current
