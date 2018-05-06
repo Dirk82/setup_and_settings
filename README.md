@@ -11,9 +11,9 @@ There are moments when you are setting up a new machine elsewhere or want to hel
 - [Setup instructions](#setup-instructions)
     - [Step 1: Installing Homebrew](#step-1-installing-homebrew-and-zsh)
     - [Step 2: Change user shell](#step-2-change-user-shell)
-    - [Step 3: Installing Ruby](#step-4-installing-ruby)
-    - [Step 4: Installing and setup databases](#step-5-installing-and-setup-databases)
-    - [Step 5: Homebrew packages](#step-6-homebrew-packages)
+    - [Step 3: Installing Ruby](#step-3-installing-ruby)
+    - [Step 4: Installing and setup databases](#step-4-installing-and-setup-databases)
+    - [Step 5: Homebrew packages](#step-5-homebrew-packages)
 
 ## Application settings
 
