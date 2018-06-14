@@ -38,3 +38,7 @@ if
   which rbenv > /dev/null;
   then eval "$(rbenv init -)";
 fi
+
+### Make terminal notifier available for guard 
+export TERMINAL_NOTIFIER_BIN=/usr/local/bin/terminal-notifier
+
