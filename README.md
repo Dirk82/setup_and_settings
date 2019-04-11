@@ -59,6 +59,6 @@ Thanks to Homebrew this will be very easy!
 
 [Gist with instructions](https://gist.github.com/Dirk82/9538089)
 
-### Step 5: Homebrew packages
+### Step 5: Homebrew and npm packages
 
 [Gist with instructions](https://gist.github.com/Dirk82/9537913)
