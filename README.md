@@ -5,15 +5,16 @@ There are moments when you are setting up a new machine elsewhere or want to hel
 ## Table of contents
 
 - [Application settings](#application-settings)
-    - [GitHub](#github)
-    - [RubyGems](#rubygems)
-    - [ZSH](#zsh)
+  - [GitHub](#github)
+  - [RubyGems](#rubygems)
+  - [ZSH](#zsh)
 - [Setup instructions](#setup-instructions)
-    - [Step 1: Installing Homebrew](#step-1-installing-homebrew-and-zsh)
-    - [Step 2: Change user shell](#step-2-change-user-shell)
-    - [Step 3: Installing Ruby](#step-3-installing-ruby)
-    - [Step 4: Installing and setup databases](#step-4-installing-and-setup-databases)
-    - [Step 5: Homebrew packages](#step-5-homebrew-packages)
+  - [Step 1: Installing Homebrew](#step-1-installing-homebrew-and-zsh)
+  - [Step 2: Change user shell](#step-2-change-user-shell)
+  - [Step 3: Installing Ruby](#step-3-installing-ruby)
+  - [Step 4: Installing Ruby](#step-4-installing-python)
+  - [Step 5: Installing and setup databases](#step-5-installing-and-setup-databases)
+  - [Step 6: Homebrew packages](#step-6-homebrew-packages)
 
 ## Application settings
 
@@ -47,7 +48,11 @@ The repo holds a folder ['Settings'](Settings) that contains - _wait for it_ - s
 
 [Gist with instructions](https://gist.github.com/Dirk82/9537818)
 
-### Step 4: Installing and setup databases
+### Step 4: Installing Python
+
+[Gist with instructions](https://gist.github.com/Dirk82/e446dd7f4b5f856397264dd351f3f903)
+
+### Step 5: Installing and setup databases
 
 Thanks to Homebrew this will be very easy!
 
@@ -59,6 +64,6 @@ Thanks to Homebrew this will be very easy!
 
 [Gist with instructions](https://gist.github.com/Dirk82/9538089)
 
-### Step 5: Homebrew and npm packages
+### Step 6: Homebrew and npm packages
 
 [Gist with instructions](https://gist.github.com/Dirk82/9537913)

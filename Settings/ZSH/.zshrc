@@ -26,12 +26,14 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 export EDITOR="code --wait"
 export BUNDLE_EDITOR="code"
 
-### Adjust PATH for rbenv
-export PATH="$HOME/.rbenv/bin:$PATH"
-
-### Set home for rbenv
+### Set home for rbenv and adjust PATH
 export RBENV_ROOT="$HOME/.rbenv"
 export RBENV_PLUGINS="$RBENV_ROOT/plugins"
+export PATH="$RBENV_ROOT/bin:$PATH"
+
+### Set home for pyenv and adjust PATH
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
 
 ### To enable shims and autocompletion for rbenv
 if
@@ -39,6 +41,16 @@ if
   then eval "$(rbenv init -)";
 fi
 
-### Make terminal notifier available for guard 
+### To enable shims autocompletion for pyenv
+if
+  command -v pyenv 1>/dev/null 2>&1;
+  then eval "$(pyenv init -)";
+fi
+
+### Make terminal notifier available for guard
 export TERMINAL_NOTIFIER_BIN=/usr/local/bin/terminal-notifier
 
+### NVM specific settings
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
