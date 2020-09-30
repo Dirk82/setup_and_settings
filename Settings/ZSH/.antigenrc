@@ -6,7 +6,6 @@ export NVM_LAZY_LOAD=false
 antigen bundle lukechilds/zsh-nvm
 
 # Plugins.
-antigen bundle aws
 antigen bundle brew
 antigen bundle bundler
 antigen bundle capistrano
