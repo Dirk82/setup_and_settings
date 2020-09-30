@@ -24,6 +24,8 @@
 [mergetool "vscode"]
   cmd = code --wait $MERGED
   trustExitCode = false
+[pull]
+  rebase = false
 [push]
   default = current
 [rebase]
