@@ -26,6 +26,11 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 export EDITOR="code --wait"
 export BUNDLE_EDITOR="code"
 
+### Adding node to PATH
+# export NPM_PACKAGES="$HOME/.node"
+# export NODE_PATH="$NPM_PACKAGES/lib/node_modules"
+# export PATH="$HOME/.node/bin:$PATH"
+
 ### Set home for rbenv and adjust PATH
 export RBENV_ROOT="$HOME/.rbenv"
 export RBENV_PLUGINS="$RBENV_ROOT/plugins"
