@@ -1,5 +1,5 @@
 ### Homebrew: General
-alias brew_clean="brew prune && brew cleanup --force -s"
+alias brew_clean="brew cleanup --prune-2 -s"
 alias brew_update="brew update && brew upgrade"
 
 ### Homebrew: MySQL, PG, ElasticSearch
