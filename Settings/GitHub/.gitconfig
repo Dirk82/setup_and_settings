@@ -9,7 +9,7 @@
 [commit]
   template = /Users/<YOUR_USER_NAME_HERE>/.gitmessage.txt
 [core]
-  editor = code --wait
+  editor = code --new-window --wait
   excludesfile = /Users/<YOUR_USER_NAME_HERE>/.gitignore_global
 [diff]
   tool = default-difftool
@@ -19,6 +19,8 @@
   prune = true
 [github]
   user = <YOUR_GITHUB_USER_NAME_HERE>
+[init]
+  defaultBranch = main
 [merge]
   tool = vscode
 [mergetool "vscode"]
