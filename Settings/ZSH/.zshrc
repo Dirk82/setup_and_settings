@@ -37,8 +37,8 @@ export RBENV_PLUGINS="$RBENV_ROOT/plugins"
 export PATH="$RBENV_ROOT/bin:$PATH"
 
 ### Set home for pyenv and adjust PATH
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+# export PYENV_ROOT="$HOME/.pyenv"
+# export PATH="$PYENV_ROOT/bin:$PATH"
 
 ### To enable shims and autocompletion for rbenv
 if
@@ -47,15 +47,33 @@ if
 fi
 
 ### To enable shims autocompletion for pyenv
-if
-  command -v pyenv 1>/dev/null 2>&1;
-  then eval "$(pyenv init -)";
-fi
+# if
+#   command -v pyenv 1>/dev/null 2>&1;
+#   then eval "$(pyenv init -)";
+# fi
 
 ### Make terminal notifier available for guard
 export TERMINAL_NOTIFIER_BIN=/usr/local/bin/terminal-notifier
+
+### Add the following to your zshrc to access the online help:
+unalias run-help
+autoload run-help
+HELPDIR=/usr/local/share/zsh/help
 
 ### NVM specific settings
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+### Ruby specific setting
+# Print out deprecation warnings
+export RUBYOPT='-W:deprecated'
+# Hide deprecation warnings
+# export RUBYOPT='-W:no-deprecated'
+# Set configure options for ruby: use jemalloc version and homebrew openssl
+export RUBY_CONFIGURE_OPTS="--with-jemalloc --with-openssl-dir=$(brew --prefix openssl)"
+
+### Terraform
+export HCLOUD_TOKEN=<INSERT_YOUR_HETZNER_CLOUD_API_TOKEN_HERE>
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform
