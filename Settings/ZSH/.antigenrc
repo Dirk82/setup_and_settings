@@ -11,13 +11,14 @@ antigen bundle bundler
 antigen bundle capistrano
 antigen bundle colorize
 antigen bundle git
+antigen bundle macos
 antigen bundle mysql
 antigen bundle node
 antigen bundle npm
-antigen bundle osx
 antigen bundle postgres
 antigen bundle rails
 antigen bundle rbenv
+antigen bundle vagrant
 antigen bundle yarn
 antigen bundle z
 antigen bundle lukechilds/zsh-better-npm-completion
