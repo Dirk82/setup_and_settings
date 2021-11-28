@@ -37,21 +37,11 @@ export RBENV_ROOT="$HOME/.rbenv"
 export RBENV_PLUGINS="$RBENV_ROOT/plugins"
 export PATH="$RBENV_ROOT/bin:$PATH"
 
-### Set home for pyenv and adjust PATH
-# export PYENV_ROOT="$HOME/.pyenv"
-# export PATH="$PYENV_ROOT/bin:$PATH"
-
 ### To enable shims and autocompletion for rbenv
 if
   which rbenv > /dev/null;
   then eval "$(rbenv init -)";
 fi
-
-### To enable shims autocompletion for pyenv
-# if
-#   command -v pyenv 1>/dev/null 2>&1;
-#   then eval "$(pyenv init -)";
-# fi
 
 ### Make terminal notifier available for guard
 export TERMINAL_NOTIFIER_BIN=/usr/local/bin/terminal-notifier
