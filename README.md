@@ -107,50 +107,45 @@ $ brew install postgresql@14
 ### Creating the tables:
 
 ```bash
-$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgres
+$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgresql@14
 ```
 
 ### Migrating data:
 
-#### Using `pg_dumpall` (example use for migration from 13.4 -> 14.0)
+#### Using `pg_dumpall` (example use for migration from 14 -> 15)
 
 Switch to old version of Postgresql if a newer major one has been installed and already linked (assuming the data are located in `/usr/local/var/postgres`:
 
 ```bash
-$ brew services stop postgresql
-$ brew switch postgresql 13.4
-$ brew services start postgresql
+$ brew services stop postgresql@15
+$ brew switch postgresql@14
+$ brew services start postgresql@14
 $ pg_dumpall > /PATH/TO/DUMP
-$ brew services stop postgresql
-$ mv /usr/local/var/postgres /usr/local/var/postgres.old
-$ brew switch postgresql 14.0
-$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgres
-$ brew services start postgresql
+$ brew services stop postgresql@14
+$ mv /usr/local/var/postgresql@14 /usr/local/var/postgres.old
+$ brew switch postgresql@15.0
+$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgresql@15
+$ brew services start postgresql@15
 $ psql -d postgres -f /PATH/TO/DUMP
 ```
 
 #### Using `pg_upgrade`
 
-Assuming we have a server with version 13.4 that has been upgraded to 14.0. First make sure any currently running postgres processes are stopped. Then we rename the old data directory:
-
-```bash
-$ mv /usr/local/var/postgres /usr/local/var/postgres.old
-```
-
+Assuming we have a server with version 14.7 that has been upgraded to 15.2. First make sure any currently running postgres processes are stopped.
 After this we initialize the new data directory:
 
 ```bash
-$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgres
+$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgresql@15
 ```
 
 Then we migrate the data from the old data dir to the new data dir:
 
 ```bash
-$ /usr/local/Cellar/postgresql/14.0/bin/pg_upgrade \
--b /usr/local/Cellar/postgresql@13/13.4/bin \
--B /usr/local/Cellar/postgresql/14.0/bin \
--d /usr/local/var/postgres.old \
--D /usr/local/var/postgres
+$ /usr/local/Cellar/postgresql@15/15.2/bin/pg_upgrade \
+-b /usr/local/Cellar/postgresql@14/14.7/bin \
+-B /usr/local/Cellar/postgresql@15/15.2/bin \
+-d /usr/local/var/postgresql@14 \
+-D /usr/local/var/postgresql@15
 ```
 
 After the process was _hopefully_ successful we can safely run the scripts for deleting the old cluster and analyzing the data of the migrated data (do not forget to start the PG server before doing the analyze step):
@@ -161,7 +156,7 @@ $ rm /usr/local/var/delete_old_cluster.sh
 ```
 
 ```bash
-$ /usr/local/Cellar/postgresql/14.0/bin/vacuumdb --all --analyze-in-stages
+$ /usr/local/Cellar/postgresql@15/15.2/bin/vacuumdb --all --analyze-in-stages
 ```
 
 ## Step 5: Install remaining Homebrew packages
