@@ -4,61 +4,195 @@ There are moments when you are setting up a new machine elsewhere or want to hel
 
 ## Table of contents
 
-- [Application settings](#application-settings)
-  - [GitHub](#github)
-  - [RubyGems](#rubygems)
-  - [ZSH](#zsh)
 - [Setup instructions](#setup-instructions)
   - [Step 1: Installing Homebrew](#step-1-installing-homebrew-and-zsh)
   - [Step 2: Change user shell](#step-2-change-user-shell)
   - [Step 3: Installing Ruby](#step-3-installing-ruby)
-  - [Step 4: Installing and setup databases](#step-4-installing-and-setup-databases)
-  - [Step 5: Homebrew packages](#step-5-homebrew-and-npm-packages)
+  - [Step 4: Installing and setup PostgreSQL](#step-4-installing-and-setup-postgresql)
+  - [Step 5: Install remaining Homebrew packages](#step-5-install-remaining-homebrew-packages)
+  - [Step 6: Installing other tools](#step-6-installing-other-tools)
 
-## Application settings
+## Step 1: Installing Homebrew, ZSH and asdf
 
-The repo holds a folder ['Settings'](Settings) that contains - _wait for it_ - settings! They are for:
+Executing the line from the [Homebrew homepage](http://brew.sh):
 
-### [GitHub](Settings/GitHub/)
+```bash
+$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
-- user-based gitconfig
-- global gitignore
-- template for a commit message
+Installing (a more recent version of) ZSH and antigen for managing the plugins:
 
-### [RubyGems](Settings/Ruby/)
+```bash
+$ /usr/local/bin/brew install zsh antigen asdf
+```
 
-- settings for default gem installation
+You can also call _brew_ without the whole path if you adjusted the PATH variable to include this path.
 
-### [ZSH](Settings/ZSH/)
+Copy over the `.antigenrc` and `.zshrc` file from [dotfiles](./dotfiles) to $HOME/.zshrc. Add the following line to .zshrc to enable asdf completions:
 
-- zshrc file with aliases, plugins and shell variables
+```bash
+. /usr/local/opt/asdf/libexec/asdf.sh
+```
 
-## Setup instructions
+## Step 2: Change user shell
 
-### Step 1: Installing Homebrew and ZSH
+Add ZSH to available shells:
 
-[Gist with instructions](https://gist.github.com/Dirk82/9537697)
+```bash
+$ sudo echo "/usr/local/bin/zsh" >> /etc/shells
+```
 
-### Step 2: Change user shell
+Change user login shell to ZSH:
 
-[Gist with instructions](https://gist.github.com/Dirk82/9537748)
+```bash
+$ chsh -s /usr/local/bin/zsh $USER
+```
 
-### Step 3: Installing Ruby
+Log out, log in again and we are fine to run ZSH!
 
-[Gist with instructions](https://gist.github.com/Dirk82/9537818)
+## Step 3: Installing Ruby
 
-### Step 4: Installing and setup databases
+New Ruby versions will be installed via asdf and the corresponding plugin:
+
+ ```bash
+$ asdf plugin-add ruby
+```
+
+Copy over the [.default-gems file](./dotfiles/.default-gems) to define gems that will be installed together with each Ruby version.
+
+Install Ruby 3.2.0 via ASDF
+
+```bash
+$ asdf install ruby 3.2.0
+```
+
+Install Ruby 3.2.0 via asdf using openssl3 from Homebrew and using jemalloc:
+
+
+```bash
+$ export RUBY_CONFIGURE_OPTS="--with-jemalloc --with-openssl-dir=$(brew --prefix openssl@3)" asdf install ruby 3.2.0
+```
+
+This can be omitted when there are the proper settings already present in `.zshrc`:
+
+```bash
+# .zshrc
+...
+export RUBY_CONFIGURE_OPTS="--with-jemalloc --with-openssl-dir=$(brew --prefix openssl@3)"
+...
+```
+
+Change the used Ruby from the System Ruby to the newly installed Ruby:
+
+```bash
+$ asdf global ruby 3.2.0
+```
+
+Revert back to System Ruby:
+
+```bash
+$ asdf global ruby system
+```
+
+## Step 4: Installing and setup PostgreSQL
 
 Thanks to Homebrew this will be very easy!
 
-#### MySQL
+### Installing:
 
-[Gist with instructions](https://gist.github.com/Dirk82/9537884)
+```bash
+$ brew install postgresql@14
+```
 
-#### PostgreSQL
+### Creating the tables:
 
-[Gist with instructions](https://gist.github.com/Dirk82/9538089)
+```bash
+$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgres
+```
 
-### Step 5: Homebrew and npm packages
+### Migrating data:
 
-[Gist with instructions](https://gist.github.com/Dirk82/9537913)
+#### Using `pg_dumpall` (example use for migration from 13.4 -> 14.0)
+
+Switch to old version of Postgresql if a newer major one has been installed and already linked (assuming the data are located in `/usr/local/var/postgres`:
+
+```bash
+$ brew services stop postgresql
+$ brew switch postgresql 13.4
+$ brew services start postgresql
+$ pg_dumpall > /PATH/TO/DUMP
+$ brew services stop postgresql
+$ mv /usr/local/var/postgres /usr/local/var/postgres.old
+$ brew switch postgresql 14.0
+$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgres
+$ brew services start postgresql
+$ psql -d postgres -f /PATH/TO/DUMP
+```
+
+#### Using `pg_upgrade`
+
+Assuming we have a server with version 13.4 that has been upgraded to 14.0. First make sure any currently running postgres processes are stopped. Then we rename the old data directory:
+
+```bash
+$ mv /usr/local/var/postgres /usr/local/var/postgres.old
+```
+
+After this we initialize the new data directory:
+
+```bash
+$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgres
+```
+
+Then we migrate the data from the old data dir to the new data dir:
+
+```bash
+$ /usr/local/Cellar/postgresql/14.0/bin/pg_upgrade \
+-b /usr/local/Cellar/postgresql@13/13.4/bin \
+-B /usr/local/Cellar/postgresql/14.0/bin \
+-d /usr/local/var/postgres.old \
+-D /usr/local/var/postgres
+```
+
+After the process was _hopefully_ successful we can safely run the scripts for deleting the old cluster and analyzing the data of the migrated data (do not forget to start the PG server before doing the analyze step):
+
+```bash
+$ /usr/local/var/delete_old_cluster.sh
+$ rm /usr/local/var/delete_old_cluster.sh
+```
+
+```bash
+$ /usr/local/Cellar/postgresql/14.0/bin/vacuumdb --all --analyze-in-stages
+```
+
+## Step 5: Install remaining Homebrew packages
+
+Using `brew bundle` and a proper [Brewfile](./Settings/brew/Brewfile) it's rather easy to install all desired packages. Make sure to run `brew bundle` from the location where the `Brewfile` has been placed.
+
+## Step 6: Installing other tools
+
+### Node
+
+Copy over the [.default-npm-packages file](./dotfiles/.default-npm-packages) to define npm packages that will be installed together with each Node version.
+
+
+Install node via asdf:
+
+```bash
+$ asdf plugin-add nodejs
+# Install Node 18.14.0
+$ asdf install nodejs 18.14.0
+# install latest node version and latest npm
+$ asdf install nodejs latest
+# Define a global node version
+$ asdf global nodejs 18.14.0
+```
+
+### Terraform
+
+Install terraform via asdf:
+
+```bash
+$ asdf plugin-add terraform
+$ asdf install terraform 1.3.7
+$ asdf global terraform 1.3.7
+```

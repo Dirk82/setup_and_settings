@@ -1,0 +1,13 @@
+# Save me under: $HOME/.default-gems
+
+bundler
+colorize
+dead_end
+gem_updater
+pry
+rubocop
+rubocop-performance
+rubocop-rails
+rubocop-rspec
+solargraph
+terminal-notifier
