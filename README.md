@@ -101,13 +101,13 @@ Thanks to Homebrew this will be very easy!
 ### Installing:
 
 ```bash
-$ brew install postgresql@14
+$ brew install postgresql@15
 ```
 
 ### Creating the tables:
 
 ```bash
-$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgresql@14
+$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgresql@15
 ```
 
 ### Migrating data:
