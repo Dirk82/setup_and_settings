@@ -23,7 +23,7 @@ $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/
 Installing (a more recent version of) ZSH and antigen for managing the plugins:
 
 ```bash
-$ /usr/local/bin/brew install zsh antigen asdf
+$ /opt/homebrew/bin/brew install zsh antigen asdf rust jemalloc
 ```
 
 You can also call _brew_ without the whole path if you adjusted the PATH variable to include this path.
@@ -31,7 +31,7 @@ You can also call _brew_ without the whole path if you adjusted the PATH variabl
 Copy over the `.antigenrc` and `.zshrc` file from [dotfiles](./dotfiles) to $HOME/.zshrc. Add the following line to .zshrc to enable asdf completions:
 
 ```bash
-. /usr/local/opt/asdf/libexec/asdf.sh
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
 ```
 
 ## Step 2: Change user shell
@@ -39,13 +39,13 @@ Copy over the `.antigenrc` and `.zshrc` file from [dotfiles](./dotfiles) to $HOM
 Add ZSH to available shells:
 
 ```bash
-$ sudo echo "/usr/local/bin/zsh" >> /etc/shells
+$ sudo echo "/opt/homebrew/bin/zsh" >> /etc/shells
 ```
 
 Change user login shell to ZSH:
 
 ```bash
-$ chsh -s /usr/local/bin/zsh $USER
+$ chsh -s /opt/homebrew/bin/zsh $USER
 ```
 
 Log out, log in again and we are fine to run ZSH!
@@ -78,14 +78,14 @@ This can be omitted when there are the proper settings already present in `.zshr
 ```bash
 # .zshrc
 ...
-export RUBY_CONFIGURE_OPTS="--with-jemalloc --with-openssl-dir=$(brew --prefix openssl@3)"
+export RUBY_CONFIGURE_OPTS="--with-jemalloc --with-openssl-dir=$(brew --prefix openssl@3) --enable-yjit"
 ...
 ```
 
 Change the used Ruby from the System Ruby to the newly installed Ruby:
 
 ```bash
-$ asdf global ruby 3.2.0
+$ asdf global ruby 3.2.2
 ```
 
 Revert back to System Ruby:
@@ -107,14 +107,14 @@ $ brew install postgresql@15
 ### Creating the tables:
 
 ```bash
-$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgresql@15
+$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@15
 ```
 
 ### Migrating data:
 
 #### Using `pg_dumpall` (example use for migration from 14 -> 15)
 
-Switch to old version of Postgresql if a newer major one has been installed and already linked (assuming the data are located in `/usr/local/var/postgres`:
+Switch to old version of Postgresql if a newer major one has been installed and already linked (assuming the data are located in `/opt/homebrew/var/postgres@15`:
 
 ```bash
 $ brew services stop postgresql@15
@@ -122,9 +122,9 @@ $ brew switch postgresql@14
 $ brew services start postgresql@14
 $ pg_dumpall > /PATH/TO/DUMP
 $ brew services stop postgresql@14
-$ mv /usr/local/var/postgresql@14 /usr/local/var/postgres.old
+$ mv /opt/homebrew/var/postgresql@14 /opt/homebrew/var/postgres.old
 $ brew switch postgresql@15.0
-$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgresql@15
+$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@15
 $ brew services start postgresql@15
 $ psql -d postgres -f /PATH/TO/DUMP
 ```
@@ -135,28 +135,28 @@ Assuming we have a server with version 14.7 that has been upgraded to 15.2. Firs
 After this we initialize the new data directory:
 
 ```bash
-$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /usr/local/var/postgresql@15
+$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@15
 ```
 
 Then we migrate the data from the old data dir to the new data dir:
 
 ```bash
-$ /usr/local/Cellar/postgresql@15/15.2/bin/pg_upgrade \
--b /usr/local/Cellar/postgresql@14/14.7/bin \
--B /usr/local/Cellar/postgresql@15/15.2/bin \
--d /usr/local/var/postgresql@14 \
--D /usr/local/var/postgresql@15
+$ /opt/homebrew/Cellar/postgresql@15/15.2/bin/pg_upgrade \
+-b /opt/homebrew/Cellar/postgresql@14/14.7/bin \
+-B /opt/homebrew/Cellar/postgresql@15/15.2/bin \
+-d /opt/homebrew/var/postgresql@14 \
+-D /opt/homebrew/var/postgresql@15
 ```
 
 After the process was _hopefully_ successful we can safely run the scripts for deleting the old cluster and analyzing the data of the migrated data (do not forget to start the PG server before doing the analyze step):
 
 ```bash
-$ /usr/local/var/delete_old_cluster.sh
-$ rm /usr/local/var/delete_old_cluster.sh
+$ /opt/homebrew/var/delete_old_cluster.sh
+$ rm /opt/homebrew/var/delete_old_cluster.sh
 ```
 
 ```bash
-$ /usr/local/Cellar/postgresql@15/15.2/bin/vacuumdb --all --analyze-in-stages
+$ /opt/homebrew/Cellar/postgresql@15/15.2/bin/vacuumdb --all --analyze-in-stages
 ```
 
 ## Step 5: Install remaining Homebrew packages
