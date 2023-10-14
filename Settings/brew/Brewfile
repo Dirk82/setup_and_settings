@@ -1,6 +1,5 @@
 tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/core"
+tap "homebrew/cask-fonts"
 tap "homebrew/services"
 brew "ansible"
 brew "antigen"
@@ -40,8 +39,9 @@ brew "openssl@3"
 brew "ossp-uuid"
 brew "overmind"
 brew "poppler"
-brew "postgresql@15", restart_service: true
+brew "postgresql@16", restart_service: true, link: true
 brew "ps2eps"
+brew "python@3.11"
 brew "readline"
 brew "redis", restart_service: true
 brew "rust"
@@ -58,3 +58,4 @@ brew "x264"
 brew "XviD"
 brew "zlib"
 brew "zsh"
+cask "vagrant"

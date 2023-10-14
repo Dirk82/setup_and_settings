@@ -1,13 +1,13 @@
 # Save me under: $HOME/.zshrc
 
 # Plugins
-source /usr/local/share/antigen/antigen.zsh
+source /opt/homebrew/share/antigen/antigen.zsh
 
 # Source additional config.
 source $HOME/.antigenrc
 
 ### Set PATH, MANPATH, etc. for Homebrew.
-eval "$(/usr/local/bin/brew shellenv)"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ### Set brew cask link directory
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
@@ -21,17 +21,25 @@ export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/b
 export EDITOR="code --wait"
 export BUNDLE_EDITOR="code"
 
-### Make terminal notifier available for guard
-export TERMINAL_NOTIFIER_BIN=/usr/local/bin/terminal-notifier
-
 ### Add the following to your zshrc to access the online help:
 unalias run-help
 autoload run-help
-HELPDIR=/usr/local/share/zsh/help
+HELPDIR=/opt/homebrew/share/zsh/help
 
 ### Ruby specific setting
 # Set configure options for ruby
-export RUBY_CONFIGURE_OPTS="--with-jemalloc --with-openssl-dir=$(brew --prefix openssl@3)"
+# Set flags which help to find libraries when compiling development dependencies
+export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/include"
+export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/lib"
+# https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
+export RUBY_CONFIGURE_OPTS="--with-jemalloc --with-openssl-dir=$(brew --prefix openssl@3) --enable-yjit"
+# Use YJIT for Ruby 3.2
+export RUBY_YJIT_ENABLE=1
+
+# https://github.com/rails/rails/issues/38560
+# Each of the two exports does the trick
+# export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+# export PGGSSENCMODE=disable
 
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit

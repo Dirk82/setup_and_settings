@@ -9,7 +9,7 @@ if type brew &> /dev/null; then
   echo
 fi
 
-# Antigen bundles# ASDF
+# ASDF
 if type asdf &> /dev/null; then
   echo "=== Updating ASDF plugins  ==="
   asdf plugin update --all

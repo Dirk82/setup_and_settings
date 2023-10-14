@@ -28,7 +28,7 @@ $ /opt/homebrew/bin/brew install zsh antigen asdf rust jemalloc
 
 You can also call _brew_ without the whole path if you adjusted the PATH variable to include this path.
 
-Copy over the `.antigenrc` and `.zshrc` file from [dotfiles](./dotfiles) to $HOME/.zshrc. Add the following line to .zshrc to enable asdf completions:
+Copy over the `.antigenrc` and `.zshrc` file from [dotfiles](./dotfiles) to `$HOME/.zshrc`. Add the following line to `.zshrc` to enable `asdf` completions:
 
 ```bash
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
@@ -36,7 +36,7 @@ Copy over the `.antigenrc` and `.zshrc` file from [dotfiles](./dotfiles) to $HOM
 
 ## Step 2: Change user shell
 
-Add ZSH to available shells:
+Add ZSH from Homebrew to available shells:
 
 ```bash
 $ sudo echo "/opt/homebrew/bin/zsh" >> /etc/shells
@@ -48,11 +48,11 @@ Change user login shell to ZSH:
 $ chsh -s /opt/homebrew/bin/zsh $USER
 ```
 
-Log out, log in again and we are fine to run ZSH!
+Log out, log in again and we are fine to run a more recent version of ZSH!
 
 ## Step 3: Installing Ruby
 
-New Ruby versions will be installed via asdf and the corresponding plugin:
+New Ruby versions will be installed via `asdf` and the corresponding plugin:
 
  ```bash
 $ asdf plugin-add ruby
@@ -60,20 +60,20 @@ $ asdf plugin-add ruby
 
 Copy over the [.default-gems file](./dotfiles/.default-gems) to define gems that will be installed together with each Ruby version.
 
-Install Ruby 3.2.0 via ASDF
+Install Ruby 3.2.2 via ASDF:
 
 ```bash
-$ asdf install ruby 3.2.0
+$ asdf install ruby 3.2.2
 ```
 
-Install Ruby 3.2.0 via asdf using openssl3 from Homebrew and using jemalloc:
+Install Ruby 3.2.2 via `asdf` using `openssl3` from Homebrew and using jemalloc:
 
 
 ```bash
-$ export RUBY_CONFIGURE_OPTS="--with-jemalloc --with-openssl-dir=$(brew --prefix openssl@3)" asdf install ruby 3.2.0
+$ export RUBY_CONFIGURE_OPTS="--with-jemalloc --with-openssl-dir=$(brew --prefix openssl@3) --enable-yjit" asdf install ruby 3.2.2
 ```
 
-This can be omitted when there are the proper settings already present in `.zshrc`:
+This can be omitted when the proper settings are already present in `.zshrc`:
 
 ```bash
 # .zshrc
@@ -101,62 +101,59 @@ Thanks to Homebrew this will be very easy!
 ### Installing:
 
 ```bash
-$ brew install postgresql@15
+$ brew install postgresql@16
 ```
 
 ### Creating the tables:
 
 ```bash
-$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@15
+$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@16
 ```
 
 ### Migrating data:
 
-#### Using `pg_dumpall` (example use for migration from 14 -> 15)
+#### Using `pg_dumpall` (example use for migration from 15 -> 16)
 
-Switch to old version of Postgresql if a newer major one has been installed and already linked (assuming the data are located in `/opt/homebrew/var/postgres@15`:
+Switch to old version of Postgresql if a newer major one has been installed and already linked (assuming the old data is located in `/opt/homebrew/var/postgres@15`):
 
 ```bash
-$ brew services stop postgresql@15
-$ brew switch postgresql@14
-$ brew services start postgresql@14
-$ pg_dumpall > /PATH/TO/DUMP
-$ brew services stop postgresql@14
-$ mv /opt/homebrew/var/postgresql@14 /opt/homebrew/var/postgres.old
-$ brew switch postgresql@15.0
-$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@15
+$ brew services stop postgresql@16
+$ brew switch postgresql@15
 $ brew services start postgresql@15
+$ pg_dumpall > /PATH/TO/DUMP
+$ brew services stop postgresql@15
+$ mv /opt/homebrew/var/postgresql@15 /opt/homebrew/var/postgres.old
+$ brew switch postgresql@16
+$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@16
+$ brew services start postgresql@16
 $ psql -d postgres -f /PATH/TO/DUMP
 ```
 
 #### Using `pg_upgrade`
 
-Assuming we have a server with version 14.7 that has been upgraded to 15.2. First make sure any currently running postgres processes are stopped.
+Assuming we have a server with version 15.4 that has been upgraded to 16.0. First make sure any currently running postgres processes are stopped.
 After this we initialize the new data directory:
 
 ```bash
-$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@15
+$ /opt/homebrew/Cellar/postgresql@16/16.0/bin/initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@16
 ```
 
 Then we migrate the data from the old data dir to the new data dir:
 
 ```bash
-$ /opt/homebrew/Cellar/postgresql@15/15.2/bin/pg_upgrade \
--b /opt/homebrew/Cellar/postgresql@14/14.7/bin \
--B /opt/homebrew/Cellar/postgresql@15/15.2/bin \
--d /opt/homebrew/var/postgresql@14 \
--D /opt/homebrew/var/postgresql@15
+$ /opt/homebrew/Cellar/postgresql@16/16.0/bin/pg_upgrade \
+--old-datadir /opt/homebrew/var/postgresql@15 \
+--new-datadir /opt/homebrew/var/postgresql@16 \
+--old-bindir /opt/homebrew/Cellar/postgresql@15/15.4/bin \
+--new-bindir /opt/homebrew/Cellar/postgresql@16/16.0/bin
 ```
 
-After the process was _hopefully_ successful we can safely run the scripts for deleting the old cluster and analyzing the data of the migrated data (do not forget to start the PG server before doing the analyze step):
+After the process was _hopefully_ successful we can safely delete the old cluster and analyze the data of the migrated data (do not forget to start the PG server before doing the analyze step):
 
 ```bash
-$ /opt/homebrew/var/delete_old_cluster.sh
-$ rm /opt/homebrew/var/delete_old_cluster.sh
-```
-
-```bash
-$ /opt/homebrew/Cellar/postgresql@15/15.2/bin/vacuumdb --all --analyze-in-stages
+$ rm -rf /opt/homebrew/var/postgresql@15
+$ brew services start postgresql@16
+$ /opt/homebrew/Cellar/postgresql@16/16.0/bin/vacuumdb --all --analyze-in-stages
 ```
 
 ## Step 5: Install remaining Homebrew packages
@@ -174,12 +171,12 @@ Install node via asdf:
 
 ```bash
 $ asdf plugin-add nodejs
-# Install Node 18.14.0
-$ asdf install nodejs 18.14.0
+# Install Node 20.8.0
+$ asdf install nodejs 20.8.0
 # install latest node version and latest npm
 $ asdf install nodejs latest
 # Define a global node version
-$ asdf global nodejs 18.14.0
+$ asdf global nodejs 20.8.0
 ```
 
 ### Terraform
@@ -188,6 +185,6 @@ Install terraform via asdf:
 
 ```bash
 $ asdf plugin-add terraform
-$ asdf install terraform 1.3.7
-$ asdf global terraform 1.3.7
+$ asdf install terraform 1.6.1
+$ asdf global terraform 1.6.1
 ```
