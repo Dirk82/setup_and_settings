@@ -3,6 +3,11 @@
 # Plugins
 source /opt/homebrew/share/antigen/antigen.zsh
 
+# History management settings
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+HISTSIZE=9999
+
 # Source additional config.
 source $HOME/.antigenrc
 
@@ -15,6 +20,8 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 ### Token for Github API to avoid limited requests
 ### Used by homebrew
 export HOMEBREW_GITHUB_API_TOKEN=<INSERT_YOUR_GITHUB_API_TOKEN_HERE>
+### Used by mise
+export MISE_GITHUB_TOKEN=<INSERT_YOUR_GITHUB_API_TOKEN_HERE>
 
 ### Set VS Code as the default editor
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
@@ -33,7 +40,7 @@ export CPPFLAGS="$CPPFLAGS -I$HOMEBREW_PREFIX/include"
 export LDFLAGS="$LDFLAGS -L$HOMEBREW_PREFIX/lib"
 # https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
 export RUBY_CONFIGURE_OPTS="--with-jemalloc --with-openssl-dir=$(brew --prefix openssl@3) --enable-yjit"
-# Use YJIT for Ruby 3.2
+# Use YJIT for Ruby 3.2+
 export RUBY_YJIT_ENABLE=1
 
 # https://github.com/rails/rails/issues/38560
@@ -44,5 +51,24 @@ export RUBY_YJIT_ENABLE=1
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 
-# Enable ASDF completions
-. /usr/local/opt/asdf/libexec/asdf.sh
+# Activate mise
+eval "$(mise activate zsh)"
+
+update_packages() {
+  # Homebrew
+  if type brew &> /dev/null; then
+    echo "=== Updating Homebrew and packages ==="
+    brew update
+    brew upgrade
+    echo "=== Finished updating Homebrew and packages ==="
+    echo
+  fi
+
+  # Node, npm
+  if type npm &> /dev/null; then
+    echo "=== Updating node packages  ==="
+    npm -g update
+    echo "=== Finished updating node packages ==="
+    echo
+  fi
+}

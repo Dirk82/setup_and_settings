@@ -12,7 +12,7 @@ There are moments when you are setting up a new machine elsewhere or want to hel
   - [Step 5: Install remaining Homebrew packages](#step-5-install-remaining-homebrew-packages)
   - [Step 6: Installing other tools](#step-6-installing-other-tools)
 
-## Step 1: Installing Homebrew, ZSH and asdf
+## Step 1: Installing Homebrew, ZSH and mise
 
 Executing the line from the [Homebrew homepage](http://brew.sh):
 
@@ -23,16 +23,12 @@ $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/
 Installing (a more recent version of) ZSH and antigen for managing the plugins:
 
 ```bash
-$ /opt/homebrew/bin/brew install zsh antigen asdf rust jemalloc
+$ /opt/homebrew/bin/brew install zsh antigen mise rust jemalloc
 ```
 
 You can also call _brew_ without the whole path if you adjusted the PATH variable to include this path.
 
-Copy over the `.antigenrc` and `.zshrc` file from [dotfiles](./dotfiles) to `$HOME/.zshrc`. Add the following line to `.zshrc` to enable `asdf` completions:
-
-```bash
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
-```
+Copy over the `.antigenrc` and `.zshrc` file from [dotfiles](./dotfiles) to `$HOME/.zshrc`
 
 ## Step 2: Change user shell
 
@@ -52,25 +48,18 @@ Log out, log in again and we are fine to run a more recent version of ZSH!
 
 ## Step 3: Installing Ruby
 
-New Ruby versions will be installed via `asdf` and the corresponding plugin:
+New Ruby versions will be installed via `mise`. Copy over the [.default-gems file](./dotfiles/.default-gems) to define gems that will be installed together with each Ruby version.
 
- ```bash
-$ asdf plugin-add ruby
-```
-
-Copy over the [.default-gems file](./dotfiles/.default-gems) to define gems that will be installed together with each Ruby version.
-
-Install Ruby 3.2.2 via ASDF:
+Install Ruby 3.4.1 via `mise`:
 
 ```bash
-$ asdf install ruby 3.2.2
+$ mise install ruby@3.4.1
 ```
 
-Install Ruby 3.2.2 via `asdf` using `openssl3` from Homebrew and using jemalloc:
-
+Install Ruby 3.4.1 via `mise` using `openssl3` from Homebrew and using jemalloc:
 
 ```bash
-$ export RUBY_CONFIGURE_OPTS="--with-jemalloc --with-openssl-dir=$(brew --prefix openssl@3) --enable-yjit" asdf install ruby 3.2.2
+$ export RUBY_CONFIGURE_OPTS="--with-jemalloc --with-openssl-dir=$(brew --prefix openssl@3) --enable-yjit" mise install ruby@3.4.1
 ```
 
 This can be omitted when the proper settings are already present in `.zshrc`:
@@ -85,13 +74,7 @@ export RUBY_CONFIGURE_OPTS="--with-jemalloc --with-openssl-dir=$(brew --prefix o
 Change the used Ruby from the System Ruby to the newly installed Ruby:
 
 ```bash
-$ asdf global ruby 3.2.2
-```
-
-Revert back to System Ruby:
-
-```bash
-$ asdf global ruby system
+$ mise use --global ruby@3.4.1
 ```
 
 ## Step 4: Installing and setup PostgreSQL
@@ -101,59 +84,59 @@ Thanks to Homebrew this will be very easy!
 ### Installing:
 
 ```bash
-$ brew install postgresql@16
+$ brew install postgresql@17
 ```
 
 ### Creating the tables:
 
 ```bash
-$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@16
+$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@17
 ```
 
 ### Migrating data:
 
-#### Using `pg_dumpall` (example use for migration from 15 -> 16)
+#### Using `pg_dumpall` (example use for migration from 16 -> 17)
 
-Switch to old version of Postgresql if a newer major one has been installed and already linked (assuming the old data is located in `/opt/homebrew/var/postgres@15`):
+Switch to old version of Postgresql if a newer major one has been installed and already linked (assuming the old data is located in `/opt/homebrew/var/postgres@16`):
 
 ```bash
-$ brew services stop postgresql@16
-$ brew switch postgresql@15
-$ brew services start postgresql@15
-$ pg_dumpall > /PATH/TO/DUMP
-$ brew services stop postgresql@15
-$ mv /opt/homebrew/var/postgresql@15 /opt/homebrew/var/postgres.old
+$ brew services stop postgresql@17
 $ brew switch postgresql@16
-$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@16
 $ brew services start postgresql@16
+$ pg_dumpall > /PATH/TO/DUMP
+$ brew services stop postgresql@16
+$ mv /opt/homebrew/var/postgresql@16 /opt/homebrew/var/postgres.old
+$ brew switch postgresql@17
+$ initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@17
+$ brew services start postgresql@17
 $ psql -d postgres -f /PATH/TO/DUMP
 ```
 
 #### Using `pg_upgrade`
 
-Assuming we have a server with version 15.4 that has been upgraded to 16.0. First make sure any currently running postgres processes are stopped.
+Assuming we have a server with version 16.6 that has been upgraded to 17.2. First make sure any currently running postgres processes are stopped.
 After this we initialize the new data directory:
 
 ```bash
-$ /opt/homebrew/Cellar/postgresql@16/16.0/bin/initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@16
+$ /opt/homebrew/Cellar/postgresql@17/17.2/bin/initdb --data-checksums --encoding=UTF-8 --locale=de_DE.UTF-8 -D /opt/homebrew/var/postgresql@17
 ```
 
 Then we migrate the data from the old data dir to the new data dir:
 
 ```bash
-$ /opt/homebrew/Cellar/postgresql@16/16.0/bin/pg_upgrade \
---old-datadir /opt/homebrew/var/postgresql@15 \
---new-datadir /opt/homebrew/var/postgresql@16 \
---old-bindir /opt/homebrew/Cellar/postgresql@15/15.4/bin \
---new-bindir /opt/homebrew/Cellar/postgresql@16/16.0/bin
+$ /opt/homebrew/Cellar/postgresql@17/17.2/bin/pg_upgrade \
+--old-datadir /opt/homebrew/var/postgresql@16 \
+--new-datadir /opt/homebrew/var/postgresql@17 \
+--old-bindir /opt/homebrew/Cellar/postgresql@16/16.6/bin \
+--new-bindir /opt/homebrew/Cellar/postgresql@17/17.2/bin
 ```
 
 After the process was _hopefully_ successful we can safely delete the old cluster and analyze the data of the migrated data (do not forget to start the PG server before doing the analyze step):
 
 ```bash
-$ rm -rf /opt/homebrew/var/postgresql@15
-$ brew services start postgresql@16
-$ /opt/homebrew/Cellar/postgresql@16/16.0/bin/vacuumdb --all --analyze-in-stages
+$ rm -rf /opt/homebrew/var/postgresql@16
+$ brew services start postgresql@17
+$ /opt/homebrew/Cellar/postgresql@17/17.2/bin/vacuumdb --all --analyze-in-stages
 ```
 
 ## Step 5: Install remaining Homebrew packages
@@ -166,25 +149,35 @@ Using `brew bundle` and a proper [Brewfile](./Settings/brew/Brewfile) it's rathe
 
 Copy over the [.default-npm-packages file](./dotfiles/.default-npm-packages) to define npm packages that will be installed together with each Node version.
 
-
-Install node via asdf:
+Install node via `mise` and set a global default version:
 
 ```bash
-$ asdf plugin-add nodejs
-# Install Node 20.8.0
-$ asdf install nodejs 20.8.0
-# install latest node version and latest npm
-$ asdf install nodejs latest
-# Define a global node version
-$ asdf global nodejs 20.8.0
+$ mise use --global nodejs@22.13.2
 ```
 
 ### Terraform
 
-Install terraform via asdf:
+Install terraform via `mise` and set a global default version:
 
 ```bash
-$ asdf plugin-add terraform
-$ asdf install terraform 1.6.1
-$ asdf global terraform 1.6.1
+$ mise use --global terraform@1.6.1
+```
+
+### Python
+
+Install python via `mise` and set a global default version:
+
+```bash
+$ mise use --global python@3.13.2
+$ pip install --upgrade pip
+# Will be required for ansible in the next step
+$ pip3 install pipx
+```
+
+### Ansible
+
+Install ansible via `mise` and set a global default version:
+
+```bash
+$ mise use --global ansible@11.2.0
 ```

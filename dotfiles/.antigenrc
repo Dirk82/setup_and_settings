@@ -1,14 +1,16 @@
+# Disable async git prompt
+# https://github.com/ohmyzsh/ohmyzsh?tab=readme-ov-file#disable-async-git-prompt
+zstyle ':omz:alpha:lib:git' async-prompt no
+
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
 # Plugins.
 antigen bundle bundler
-antigen bundle capistrano
 antigen bundle colorize
 antigen bundle git
 antigen bundle npm
 antigen bundle rails
-antigen bundle vagrant
 antigen bundle yarn
 antigen bundle z
 antigen bundle lukechilds/zsh-better-npm-completion
