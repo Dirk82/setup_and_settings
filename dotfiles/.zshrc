@@ -4,18 +4,19 @@
 source /opt/homebrew/share/antigen/antigen.zsh
 
 # History management settings
-setopt hist_ignore_all_dups
-setopt hist_ignore_space
-HISTSIZE=9999
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
+setopt EXTENDED_HISTORY
 
 # Source additional config.
 source $HOME/.antigenrc
 
 ### Set PATH, MANPATH, etc. for Homebrew.
 eval "$(/opt/homebrew/bin/brew shellenv)"
-
-### Set brew cask link directory
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 ### Token for Github API to avoid limited requests
 ### Used by homebrew
@@ -32,6 +33,25 @@ export BUNDLE_EDITOR="code"
 unalias run-help
 autoload run-help
 HELPDIR=/opt/homebrew/share/zsh/help
+
+update_packages() {
+  # Homebrew
+  if type brew &> /dev/null; then
+    echo "=== Updating Homebrew and packages ==="
+    brew update
+    brew upgrade
+    echo "=== Finished updating Homebrew and packages ==="
+    echo
+  fi
+
+  # Node, npm
+  if type npm &> /dev/null; then
+    echo "=== Updating node packages  ==="
+    npm -g update
+    echo "=== Finished updating node packages ==="
+    echo
+  fi
+}
 
 ### Ruby specific setting
 # Set configure options for ruby
@@ -53,22 +73,3 @@ autoload -U +X bashcompinit && bashcompinit
 
 # Activate mise
 eval "$(mise activate zsh)"
-
-update_packages() {
-  # Homebrew
-  if type brew &> /dev/null; then
-    echo "=== Updating Homebrew and packages ==="
-    brew update
-    brew upgrade
-    echo "=== Finished updating Homebrew and packages ==="
-    echo
-  fi
-
-  # Node, npm
-  if type npm &> /dev/null; then
-    echo "=== Updating node packages  ==="
-    npm -g update
-    echo "=== Finished updating node packages ==="
-    echo
-  fi
-}
