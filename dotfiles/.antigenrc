@@ -9,8 +9,11 @@ antigen use oh-my-zsh
 antigen bundle bundler
 antigen bundle colorize
 antigen bundle git
+antigen bundle history
+antigen bundle mise
 antigen bundle npm
 antigen bundle rails
+antigen bundle vscode
 antigen bundle yarn
 antigen bundle z
 antigen bundle lukechilds/zsh-better-npm-completion
